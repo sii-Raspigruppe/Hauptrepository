@@ -6,7 +6,7 @@ cwd = dirname(os.getcwd())
 
 directory = './index.md'
 
-# Änderungen 
+# Änderungen Hans 
 
 def check_if_string_in_file(file_name, string_to_search):
 	f = open(file_name, 'r')

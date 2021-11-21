@@ -7,8 +7,14 @@ import RPi.GPIO as GPIO
 ##import paho.mqtt.client as mqtt
 import random
 
+
 #import individual Parameter
 import include
+
+mydb = include.mydb
+print(mydb)
+
+mycursor = mydb.cursor()
 
 broker = 'IOBroker'
 port = 1883
@@ -60,6 +66,12 @@ try:
             start_time=time.time()
             GPIO.output(GPIO_LED,0)
             print ("%s *** Bewegung beginnt! ***" % datetime.datetime.now())
+
+            jetzt = str(datetime.datetime.now())
+            sql = "INSERT INTO motions SET time='" + jetzt + "', user='udo', wert1='Raspi V1.3.1'"
+            print(sql)
+            mycursor.execute(sql)
+
             motion_count+=1
             # alten Status speichern
             Previous_State=1

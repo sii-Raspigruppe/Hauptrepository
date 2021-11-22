@@ -67,6 +67,7 @@ try:
             GPIO.output(GPIO_LED,0)
             print ("%s *** Bewegung beginnt! ***" % datetime.datetime.now())
 
+            #Bewegung in die MySQL-Tabelle einzutragen
             jetzt = str(datetime.datetime.now())
             sql = "INSERT INTO motions SET time='" + jetzt + "', user='udo', wert1='Raspi V1.3.1'"
             print(sql)

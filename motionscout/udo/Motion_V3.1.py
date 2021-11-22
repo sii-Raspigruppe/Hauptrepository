@@ -85,6 +85,9 @@ try:
             print (" Zeitdauer : " + str(elapsed_time) + " sec" + "  Anzahl Bewegungen " + str(motion_count))
             Previous_State=0
             ##result = client.publish(topic, motion_count)  #MQTT Broker benachrichtigen
+            print("Warte 1 Minute")
+            time.sleep(60)
+            print("weiter get's ...")
 
 except KeyboardInterrupt:
     # Programm beenden

@@ -6,6 +6,7 @@ Raspi-OS 32bit auswählen und auf SD-Karte schreiben
  `sudo apt update`
 
 ## Apache installieren
+https://raspberrytips.com/install-mariadb-raspberry-pi/
 `sudo apt install apache2 -y`
 
 Homeverzeichnis: /var/www/html
@@ -34,10 +35,9 @@ sudo mysql_secure_installation
 ```
 Alle Fragen mit y beantworten und ggf. Passwort für DB eingeben
 
-## falls Passwort nicht abgefragt wude, so setzen
+## PhpMyAdmin installieren
 ```
-sudo /etc/init.d/mysql stop
-sudo mysqld_safe – skip-grant-tables &
+https://raspberrytips.com/install-mariadb-raspberry-pi/
 ```
 
 

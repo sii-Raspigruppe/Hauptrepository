@@ -1,4 +1,4 @@
-# Raspberry installieren - ENTWURF
+# Raspberry installieren
 ## Raspi-Imager herunterladen
 Raspi-OS 32bit auswählen und auf SD-Karte schreiben
 

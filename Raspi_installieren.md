@@ -1,5 +1,5 @@
-#Raspberry installieren - ENTWURF
-##Linux-Pakete auf den neuesten Stand bringen
+# Raspberry installieren - ENTWURF
+## Linux-Pakete auf den neuesten Stand bringen
 sudo apt update
 
 ## Apache installieren

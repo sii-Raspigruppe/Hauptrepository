@@ -28,7 +28,11 @@ http://localhost/pi.php
 PHP-Version auf der angezeigten Seite merken (z.B. 7.4.25)
 
 ## MySQL installieren
-`sudo apt install -y mariadb-server`
+```
+sudo apt install -y mariadb-server
+sudo mysql_secure_installation
+```
+Alle Fragen mit y beantworten und ggf. Passwort für DB eingeben
 
 ## falls Passwort nicht abgefragt wude, so setzen
 ```

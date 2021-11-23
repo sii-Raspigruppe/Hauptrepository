@@ -6,7 +6,7 @@ Raspi-OS 32bit auswählen und auf SD-Karte schreiben
  `sudo apt update`
 
 ## Apache installieren
-https://raspberrytips.com/install-mariadb-raspberry-pi/
+https://raspberrytips.com/web-server-setup-on-raspberry-pi/#PHPMyAdmin
 `sudo apt install apache2 -y`
 
 Homeverzeichnis: /var/www/html
@@ -29,6 +29,7 @@ http://localhost/pi.php
 PHP-Version auf der angezeigten Seite merken (z.B. 7.4.25)
 
 ## MySQL installieren
+https://raspberrytips.com/install-mariadb-raspberry-pi/
 ```
 sudo apt install -y mariadb-server
 sudo mysql_secure_installation
@@ -37,7 +38,7 @@ Alle Fragen mit y beantworten und ggf. Passwort für DB eingeben
 
 ## PhpMyAdmin installieren
 ```
-https://raspberrytips.com/install-mariadb-raspberry-pi/
+sudo apt install -y phpmyadmin
 ```
 
 

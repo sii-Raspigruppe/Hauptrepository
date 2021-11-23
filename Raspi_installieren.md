@@ -42,6 +42,8 @@ offiizieller Weg, hat nicht geklappt
 sudo apt install -y phpmyadmin
 ```
 manuelle Installation als PHP-Programm:
+```
 PhpMyAdmin hier herunterladen: https://www.phpmyadmin.net/downloads/
 Dateien in das Verzeichnis `/var/www/html/phpmyadmin` entpacken
 Adresse: http://localhost/phpmyadmin
+```

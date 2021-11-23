@@ -37,10 +37,11 @@ sudo mysql_secure_installation
 Alle Fragen mit y beantworten und ggf. Passwort für DB eingeben
 
 ## PhpMyAdmin installieren
+offiizieller Weg, hat nicht geklappt 
 ```
 sudo apt install -y phpmyadmin
 ```
-
-
-sudo mysqladmin -u root -p flush-privileges password 'rootoor'
-
+manuelle Installation als PHP-Programm:
+PhpMyAdmin hier herunterladen: https://www.phpmyadmin.net/downloads/
+Dateien in das Verzeichnis `/var/www/html/phpmyadmin` entpacken
+Adresse: http://localhost/phpmyadmin

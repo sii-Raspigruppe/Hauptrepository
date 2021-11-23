@@ -1,4 +1,7 @@
 # Raspberry installieren - ENTWURF
+## Raspi-Imager herunterladen
+Raspi-OS 32bit auswählen und auf SD-Karte schreiben
+
 ## Linux-Pakete auf den neuesten Stand bringen
  `sudo apt update`
 

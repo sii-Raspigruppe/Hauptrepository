@@ -48,6 +48,10 @@ Dateien in das Verzeichnis `/var/www/html/phpmyadmin` entpacken
 Adresse: http://localhost/phpmyadmin
 ```
 ## Python in Apache lauffähig machen
+https://www.howtoforge.de/anleitung/wie-man-python-skripte-mit-apache-und-mod-wsgi-auf-ubuntu-1804-ausfuehrt/
+
+veraltet:
+https://www.howtoforge.de/anleitung/python-in-apache2-mit-mod_python-debian-etch-einbetten/
 ```
 sudo apt install libapache2-mod-python
 sudo nano /etc/apache2/sites-available/default

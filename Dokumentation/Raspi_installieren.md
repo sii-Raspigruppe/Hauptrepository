@@ -53,14 +53,16 @@ sudo apt install libapache2-mod-python
 sudo nano /etc/apache2/sites-available/default
 
         ...
-        <Directory /var/www/>
-                Options Indexes FollowSymLinks MultiViews
-                AllowOverride None
-                Order allow,deny
-                allow from all
-                AddHandler mod_python .py
-                PythonHandler mod_python.publisher
-                PythonDebug On
-        </Directory>
+      <Directory /var/www/>
+              Options Indexes FollowSymLinks
+              AllowOverride None
+              Require all granted
+              Order allow, deny
+              allow from all
+              AddHandler mod_python .py
+              PythonHandler mod_python.publisher
+              PythonDebug On
+      </Directory>
+
        ...
 ```

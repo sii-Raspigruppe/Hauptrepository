@@ -47,3 +47,20 @@ PhpMyAdmin hier herunterladen: https://www.phpmyadmin.net/downloads/
 Dateien in das Verzeichnis `/var/www/html/phpmyadmin` entpacken
 Adresse: http://localhost/phpmyadmin
 ```
+## Python in Apache lauffähig machen
+```
+sudo apt install libapache2-mod-python
+sudo nano /etc/apache2/sites-available/default
+
+        ...
+        <Directory /var/www/>
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride None
+                Order allow,deny
+                allow from all
+                AddHandler mod_python .py
+                PythonHandler mod_python.publisher
+                PythonDebug On
+        </Directory>
+       ...
+```

@@ -57,7 +57,7 @@ sudo nano /etc/apache2/sites-available/default
               Options Indexes FollowSymLinks
               AllowOverride None
               Require all granted
-              Order allow, deny
+              Order allow,deny
               allow from all
               AddHandler mod_python .py
               PythonHandler mod_python.publisher

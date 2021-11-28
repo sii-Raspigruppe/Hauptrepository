@@ -6,19 +6,17 @@ import RPi.GPIO as GPIO
 #from paho.mqtt import client as mqtt_client
 ##import paho.mqtt.client as mqtt
 import random
-
-
 #import individual Parameter
 import include
 
-mydb = include.mydb
-print(mydb)
+# Nach einer Bewegung wir solange gewartet in Sekunden
+pause = 10
 
-mycursor = mydb.cursor()
 
 broker = 'IOBroker'
 port = 1883
 topic = "SmartHome/Motion/PIR3"
+
 # client ID über Zufallsgenerator erzeugen
 ##client_id = f'python-mqtt-{random.randint(0, 1000)}' # f-String
 
@@ -43,7 +41,33 @@ Current_State  = 0
 Previous_State = 0
 
 # Variable zählt die Bewegungen
-motion_count= 0
+motion_count= 0 
+
+def mysql_write():
+    try:
+        import mysql.connector
+        
+        mydb = mysql.connector.connect(
+          host=include.myhost,
+          user=include.myuser,
+          password=include.mypassword,
+          database=include.mydatabase
+        )
+        print("MyDB: ",mydb)
+        mycursor = mydb.cursor()
+        
+        try:
+            #Bewegung in die MySQL-Tabelle einzutragen
+            jetzt = str(datetime.datetime.now())
+            sql = "INSERT INTO motions SET time='" + jetzt + "', user='udo', wert1='Raspi V1.3.1'"
+            print(sql)
+            mycursor.execute(sql)
+        except:
+            print("ERROR: MySQL schreiben fehlgeschlagen.")
+    except:
+        print("ERROR: MySQL-DB öffnen fehlgeschlagen.")
+
+
 # Den Ruhezustand des PIR Sensors abwarten 
 print ("Warten, bis PIR im Ruhezustand ist ...")
 GPIO.output(GPIO_LED,not GPIO.input(GPIO_PIR))
@@ -58,20 +82,17 @@ try:
     while True :
         # Lese PIR Eingang
         Current_State = GPIO.input(GPIO_PIR)
-        if Current_State==1:                   
-            time.sleep(1)   #Signal muss mindestens eine Sekunde anliegen
-            Current_State = GPIO.input(GPIO_PIR)  # nochmal abfragen
+        ##if Current_State==1:                   
+        ##    time.sleep(1)   #Signal muss mindestens eine Sekunde anliegen
+        ##    Current_State = GPIO.input(GPIO_PIR)  # nochmal abfragen
         if Current_State==1 and Previous_State==0:
             # PIR hat angesprochen
             start_time=time.time()
             GPIO.output(GPIO_LED,0)
             print ("%s *** Bewegung beginnt! ***" % datetime.datetime.now())
 
-            #Bewegung in die MySQL-Tabelle einzutragen
-            jetzt = str(datetime.datetime.now())
-            sql = "INSERT INTO motions SET time='" + jetzt + "', user='udo', wert1='Raspi V1.3.1'"
-            print(sql)
-            mycursor.execute(sql)
+            # Event in MySQL-Datenbank schreiben
+            mysql_write()
 
             motion_count+=1
             # alten Status speichern
@@ -86,10 +107,17 @@ try:
             Previous_State=0
             ##result = client.publish(topic, motion_count)  #MQTT Broker benachrichtigen
             print("Warte 1 Minute")
-            time.sleep(60)
-            print("weiter get's ...")
+            print("weiter get's ... ", end='', flush=True)
+            for i in range(1,int(pause/5+1)):
+                time.sleep(5)
+                print('%d '% (i*5), end='', flush=True)
+            print()
 
 except KeyboardInterrupt:
     # Programm beenden
     print ("Ende...")
     GPIO.cleanup()
+    
+    
+
+

@@ -1,4 +1,4 @@
-# Webseite zur Bewwegungsanalyse
+# Webseite zur Bewegungsanalyse
 
 ## count.php
 Über dieses Programm meldendie Bewegungssensoren einzelne Events, die dann in die Datenbank eingetragen werden. 

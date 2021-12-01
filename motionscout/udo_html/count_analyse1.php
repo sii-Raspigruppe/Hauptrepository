@@ -7,8 +7,8 @@
 <?php
 
 	include("debugvar.php");
-	include("include.database.php");	
-	include("include.common.php");
+	include("database.inc.php");	
+	include("common.inc.php");
 
     $_TEST = 1;
 

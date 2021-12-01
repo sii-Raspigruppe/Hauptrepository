@@ -10,7 +10,7 @@ import random
 import include
 
 # Nach einer Bewegung wir solange gewartet in Sekunden
-pause = 10
+pause = 60
 
 
 broker = 'IOBroker'

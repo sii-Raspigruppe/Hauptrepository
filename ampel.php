@@ -186,12 +186,14 @@
     for ($n = $nanz; $n > 0 ; $n--) {
         $nvon = date("H", ($start- $n*$duration));
         $nbis = date("H", ($start-($n-1)*$duration));
-        if (!isset($status[1][$nbis])) {
+        if ($nbis > 7 and $nbis < 21) {
+            if ($status[1][$nbis] == '-') {
+                $color = $cred;
+            } elseif ($status[1][$nbis] > 0) {
+                $color = $cgreen;
+            }
+        } else {
             $color = $cgrey;
-        } elseif ($status[1][$nbis] > 0 ) {
-            $color = $cgreen;
-        } elseif ($status[1][$nbis] == '-' ) {
-            $color = $cred;
         }
         
         echo "\n<td width=200px height=200px align=center bgcolor=$color >$nvon-$nbis<br>$nbis ".$status[1][$nbis]."</td>";

@@ -2,7 +2,7 @@
 <html lang="de">
     <head>
         <meta charset="utf-8"/>
-        <!--meta http-equiv="refresh" content="30"-->    
+        <meta http-equiv="refresh" content="60">    
     </head>
     <body>
 
@@ -116,6 +116,8 @@
     $mon  = $altmon  = 0;
     $tag  = $alttag  = 0;
     $std  = $altstd  = 0;
+    $status = array();
+    $stat = 0;
     
     echo "<p>\n</p><table><tr>";
     for ($tim = $start; $tim > $ende; $tim -= $duration) {
@@ -142,6 +144,7 @@
             $altjahr = $jahr;
             $altmon  = $mon;
             $alttag  = $tag;
+            $stat++;
         }
         if ($std <> $altstd) {
             /*
@@ -155,16 +158,53 @@
             echo $std <= 19;
             echo " std: $std \n";
             */
+            
+            $cred   = '#ffdddd';
+            $cgreen = '#00ffdd';
+            $cgrey  = '#eeeeee';
+            
             if ($anz == 0) $anz = "-";
             if (($tim-$duration) > time()) $anz = "";
             if ($anz > 5 ) {
-                $color = '#00ffdd'; 
+                $color = $cgreen; 
             } elseif (time() > $tim and $anz == 0 and $std > 7 and $std <= 19 ) {
-                $color = '#ffdddd'; 
+                $color = $cred ; 
             } else $color = '';
+            $status[$stat][$std] = $anz;
             echo "\n<td width=25px align=center style='background-color:$color'>$anz</td>";
             $altstd = $std;
         }
     }
+    
     echo "</tr></table>";
+    //echo debugvar($status);
+    
+    
+    echo "\n<table border=1><tr>";
+    $nanz = floor(24*3600/$duration);
+    $ntim = $start;
+    for ($n = $nanz; $n > 0 ; $n--) {
+        $nvon = date("H", ($start- $n*$duration));
+        $nbis = date("H", ($start-($n-1)*$duration));
+        if ($nbis > 7 and $nbis <= 23) {
+            if ($status[1][$nbis] == '-') {
+                $color = $cred;
+            } elseif ($status[1][$nbis] > 0) {
+                $color = $cgreen;
+            } elseif ($status[1][$bis] == '') {
+                $color = $cgrey;
+            }
+        } else {
+            $color = $cgrey;
+        }
+        
+        echo "\n<td width=200px height=200px align=center bgcolor=$color >$nvon-$nbis<br>$nbis ".$status[1][$nbis]."</td>";
+        $ntim -= $duration;
+    }
+    echo "\n</tr></table>";
+    
+    echo "<style>";
+    echo "   #t03 { background-color:#ffbbbb;}";
+    echo "</style>";
+    
     exit;

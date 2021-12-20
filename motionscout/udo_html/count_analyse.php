@@ -1,5 +1,7 @@
-<HTML>
-    <head>
+<!DOCTYPE html>
+	<html lang="de">
+	<head>
+		<meta charset="utf-8"/><HTML>
         <!--meta http-equiv="refresh" content="30"-->    
     </head>
     <body>
@@ -7,8 +9,8 @@
 <?php
 
 	include("debugvar.php");
-	include("include.database.php");	
-	include("include.common.php");
+	include("database.inc.php");	
+	include("common.inc.php");
 
     $_TEST = 1;
 

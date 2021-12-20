@@ -1,6 +1,5 @@
-#import MySQL-Lib
-import mysql.connector
 
+# MySQL-Verbindungsdaten
 myhost="localhost"
 myuser="user"
 mypassword="password"

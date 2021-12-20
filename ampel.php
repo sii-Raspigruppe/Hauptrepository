@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-	<html lang="de">
-	<head>
-		<meta charset="utf-8"/><HTML>
+<html lang="de">
+    <head>
+        <meta charset="utf-8"/>
         <!--meta http-equiv="refresh" content="30"-->    
     </head>
     <body>
@@ -33,7 +33,7 @@
         //echo debugvar($rows);
 
         $anz = $rows[0][0];
-        //print "\n<br>SELECT count(id) FROM ".$tabs['motion']." $where ORDER BY time DESC; - Anz: $anz";
+        //print "\n<br>SELECT count(id) FROM ".$tabs['motion']." WHERE 1 $where ORDER BY time DESC; - Anz: $anz";
 
         return $rows[0][0];
     
@@ -63,6 +63,8 @@
         return array('year' => substr($rows[0][time],0,4), 'mon' => substr($rows[0][time],5,2), 'day' => substr($rows[0][time],8,2));
     }
     
+    echo "<h1>Bewegungsampel - ".date("d.m.Y H:i")."</h1>";
+    
     /*
      * Bewegungsmelder suchen und auswählen
      */
@@ -82,9 +84,9 @@
     }
     echo "</select> &nbsp;- &nbsp;";
 
-    if (isset($REQ['anzTage'])) $anzTage = $REQ['anzTage']; else  $anzTage = '20';
+    if (isset($REQ['anzTage'])) $anzTage = $REQ['anzTage']; else  $anzTage = '3';
 
-    $aTage = array('20','30','60','90','120','150','180');
+    $aTage = array('1','3','7','14','21','35','70','105','140','175','210');
     echo "<label for='Anzahl-Tage'>Anzahl wählen:</label>";
     echo "<select name='anzTage' id='AnzahlTage' onclick=submit()>\n";
     foreach ($aTage as $anz) {
@@ -102,11 +104,11 @@
     
     if (isset($REQ['devices'])) {
         $deviceStart = device_last($device);
-        $start = mktime(23,59,0,$deviceStart['mon'],$deviceStart['day'],$deviceStart['year']);
+        $start = mktime(23,00,0,$deviceStart['mon'],$deviceStart['day'],$deviceStart['year']);
     } else {
-        $start = mktime(23,59,0,date("m"),date("d"),date("Y"));
+        $start = mktime(23,00,0,date("m"),date("d"),date("Y"));
     }
-    $duration = 3600;
+    $duration = 4*3600; // 4 Stunden
     $ende = $start - $anzTage*24*3600;
     
     //decho(__FILE__,__LINE__," Test ");
@@ -114,33 +116,93 @@
     $mon  = $altmon  = 0;
     $tag  = $alttag  = 0;
     $std  = $altstd  = 0;
-    echo "<table><tr>";
+    $status = array();
+    $stat = 0;
+    
+    echo "<p>\n</p><table><tr>";
     for ($tim = $start; $tim > $ende; $tim -= $duration) {
         if ($tim == $start) {
             echo "<td>Uhrzeit:</td>";
-            for ($n =24; $n > 0; $n--) {
-                echo "<td width=25px align=center>$n</td>";
+            $nanz = floor(24*3600/$duration);
+            $ntim = $start;
+            for ($n = 0; $n < $nanz ; $n++) {
+                $nvon = date("H", $ntim);
+                $nbis = date("H", ($ntim-$duration));
+                echo "<td width=55px align=center>$nvon-$nbis</td>";
+                $ntim -= $duration;
             }
         }
-    	$anz = count_events($device, $tim, $duration );
+    	$anz = count_events( $device, $tim, $duration );
+        //echo "\n start: ".date("Y.m.d H:m",$start)." - time: ".date("Y.m.d H:m",$tim)." - anz: ".$anz."  ";
         $jahr = date("Y",$tim);
         $mon  = date("m",$tim);
         $tag  = date("d",$tim);
         $std  = date("H",$tim);
         //decho(__FILE__,__LINE__,date("Y-m-d H:i:s ", $tim)." Anzahl: ".$anz);
         if (($jahr*10000 + $mon*100 + $tag) <> ($altjahr*10000+$altmon*100+$alttag)) {
-            echo "</tr><tr><td>$tag.$mon.$jahr</td>";
+            echo "</tr><tr>\n<td>$tag.$mon.$jahr</td>";
             $altjahr = $jahr;
             $altmon  = $mon;
             $alttag  = $tag;
+            $stat++;
         }
         if ($std <> $altstd) {
+            /*
+             * echo "\nif (time() > $tim and $anz == 0 and $std >= 7 and $std <= 19 ) $color = '#ffdddd'; else $color = ''\n";
+            echo (time() > $tim);
+            echo " $tim\n";
+            echo $anz == 0;
+            echo " anz: $anz \n";
+            echo $std >= 7;
+            echo " std: $std \n";
+            echo $std <= 19;
+            echo " std: $std \n";
+            */
+            
+            $cred   = '#ffdddd';
+            $cgreen = '#00ffdd';
+            $cgrey  = '#eeeeee';
+            
             if ($anz == 0) $anz = "-";
-            if ($tim > time()) $anz = "";
-            if ($anz > 5 ) $color = '#00ffdd'; else $color = '';
-            echo "<td width=25px align=center style='background-color:$color'>$anz</td>";
+            if (($tim-$duration) > time()) $anz = "";
+            if ($anz > 5 ) {
+                $color = $cgreen; 
+            } elseif (time() > $tim and $anz == 0 and $std > 7 and $std <= 19 ) {
+                $color = $cred ; 
+            } else $color = '';
+            $status[$stat][$std] = $anz;
+            echo "\n<td width=25px align=center style='background-color:$color'>$anz</td>";
             $altstd = $std;
         }
     }
+    
     echo "</tr></table>";
+    //echo debugvar($status);
+    
+    
+    echo "\n<table border=1><tr>";
+    $nanz = floor(24*3600/$duration);
+    $ntim = $start;
+    for ($n = $nanz; $n > 0 ; $n--) {
+        $nvon = date("H", ($start- $n*$duration));
+        $nbis = date("H", ($start-($n-1)*$duration));
+        if ($nbis > 7 and $nbis < 21) {
+            if ($status[1][$nbis] == '-') {
+                $color = $cred;
+            } elseif ($status[1][$nbis] > 0) {
+                $color = $cgreen;
+            }
+        } else {
+            $color = $cgrey;
+        }
+        
+        echo "\n<td width=200px height=200px align=center bgcolor=$color >$nvon-$nbis<br>$nbis ".$status[1][$nbis]."</td>";
+        $ntim -= $duration;
+    }
+    echo "\n</tr></table>";
+    
+    echo "<style>";
+    echo "   #t03 { background-color:#ffbbbb;}";
+    echo "</style>";
+    
     exit;

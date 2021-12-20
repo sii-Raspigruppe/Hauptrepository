@@ -1,1 +1,3 @@
-include.py
+include*
+credentials*
+__pycache__

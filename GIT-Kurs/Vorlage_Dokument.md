@@ -1,3 +1,5 @@
+Github-Syntax: https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
+Quelle: https://www.go4smart.de/iobroker-installieren/
 
 1. IOBroker Allgemein:
 
@@ -28,7 +30,7 @@ sudo reboot
 Als nächstes installieren wir das node.js repository. Zum Zeitpunkt des Tutorials ist dies in der Version 13.x verfügbar. Falls es eine aktuellere Version gibt, kannst du einfach die nachfolgenden Pfade entsprechend anpassen.
 
 
-3b: Information
+3a: Information
 Auf dieser Seite findest du die aktuelle Version von nodejs:
 https://github.com/nodesource/distributions
 
@@ -39,7 +41,7 @@ sudo -H npm install -g npm@6
 curl -sL https://iobroker.net/install.sh | bash -
 
 
-3c: Information
+3b: Information
 Hier auch entsprechend auf aktuelle Version prüfen und ggf. anpassen:
 https://nodejs.org/dist/latest
 

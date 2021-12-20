@@ -1,10 +1,9 @@
-Diese Dateien werden in der Branch motionscout_x.x gepflegt, 
-wobei x.x für eine beliebige Versionsnummer steht.
+Diese Dateien werden in der Branch ''gitkurs'' gepflegt.
 
 Um die Dateien von Motionscout zu bearbeiten, folgenden Befehl eingeben:
 
-git checkout motionscout_3.1
+git checkout gitkurs
 
-dann erscheinen die Programme für den Bewegungssensor in diesem Verzeichnis.
+dann erscheinen die Dateien für den GIT-Kurs.
 
 

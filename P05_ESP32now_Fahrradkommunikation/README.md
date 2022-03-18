@@ -1,6 +1,6 @@
 Diese Dateien werden in der Branch ''P05_Fahrradkommunikation'' gepflegt.
 
-Um die Dateien von Motionscout zu bearbeiten, folgenden Befehl eingeben:
+Um die Dateien von P05_Fahrradkommunikation zu bearbeiten, folgenden Befehl eingeben:
 
 git checkout P05_Fahrradkommunikation
 

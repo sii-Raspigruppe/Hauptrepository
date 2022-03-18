@@ -129,5 +129,5 @@ void loop() {
     time_loop = millis();
   }
   // solang nix tun, dann nächste Runde
-  delay(1000);
+  delay(100);
 }

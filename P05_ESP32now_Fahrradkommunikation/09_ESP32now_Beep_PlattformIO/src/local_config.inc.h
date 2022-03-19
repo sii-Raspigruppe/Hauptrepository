@@ -15,7 +15,7 @@ uint8_t Arduino_ESP03[]   = {0xC8, 0xC9, 0xA3, 0xC9, 0x77, 0x70};  //3 COM08 - N
 uint8_t *Arduino_ESP[]    = { Arduino_ESP00, Arduino_ESP01, Arduino_ESP02, Arduino_ESP03 };
 
 // hier wird der jeweilige Partner eingetragen
-uint8_t *broadcastAddress = Arduino_ESP[3];
+uint8_t *broadcastAddress = Arduino_ESP[2];
 
   // true, wenn erweiterte Testausgaben gewünscht werden
   bool test = false;

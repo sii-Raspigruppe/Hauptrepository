@@ -12,10 +12,12 @@
   The above copyright notice and this permission notice shall be included in all
   copies or substantial portions of the Software.
 */
+#define CONFIG_ESPNOW_ENABLE_LONG_RANGE
 
 // die Standard-libs
 #include "WiFi.h"
 #include <esp_now.h>
+#include "esp_wifi.h"
 
 // Individuelle Includedateien, um mehr Übersichtlichkeit zu erhalten
 #include "local_config.inc.h"
@@ -32,6 +34,12 @@ void setup() {
 
   // Wi-Fi starten und aktuelle Mac-Adressen ausgeben
   WiFi.mode(WIFI_STA);
+  #ifdef CONFIG_ESPNOW_ENABLE_LONG_RANGE
+  WiFi.disconnect();
+  ESP_ERROR_CHECK(esp_wifi_set_protocol(
+      WIFI_IF_STA,
+      WIFI_PROTOCOL_LR));
+  #endif
   Serial.print("Meine Mac-Adresse: ");
   Serial.println(WiFi.macAddress());
   Serial.print("Partner-Mac-Adresse: ");

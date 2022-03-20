@@ -9,6 +9,12 @@
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files.
 
+
+
+leerzeile
+
+
+
   The above copyright notice and this permission notice shall be included in all
   copies or substantial portions of the Software.
 */
@@ -35,10 +41,8 @@ void setup() {
   // Wi-Fi starten und aktuelle Mac-Adressen ausgeben
   WiFi.mode(WIFI_STA);
   #ifdef CONFIG_ESPNOW_ENABLE_LONG_RANGE
-  WiFi.disconnect();
-  ESP_ERROR_CHECK(esp_wifi_set_protocol(
-      WIFI_IF_STA,
-      WIFI_PROTOCOL_LR));
+    WiFi.disconnect();
+    ESP_ERROR_CHECK(esp_wifi_set_protocol(WIFI_IF_STA,WIFI_PROTOCOL_LR));
   #endif
   Serial.print("Meine Mac-Adresse: ");
   Serial.println(WiFi.macAddress());
@@ -76,15 +80,9 @@ void setup() {
 void getReadings() {
 
   // die Tasten auslesen
-  int green  = digitalRead(pinGreen);
-  int yellow = digitalRead(pinYellow);
-  int red    = digitalRead(pinRed);
-
-  int level = 1; // Grezwert (nur für TOUCH relevant)
-  // prüfen, welcher Taster gedrückt ist und in my_xxx speichern
-  if (yellow < level) my_yellow = true; else my_yellow = false;
-  if (red    < level) my_red    = true; else my_red    = false;
-  if (green  < level) my_green  = true; else my_green  = false;
+  my_green  = !digitalRead(pinGreen);
+  my_yellow = !digitalRead(pinYellow);
+  my_red    = !digitalRead(pinRed);
 
   if (test) {
     // Tasterwerte in Klartext ausgeben (für TOUCH wichtig)

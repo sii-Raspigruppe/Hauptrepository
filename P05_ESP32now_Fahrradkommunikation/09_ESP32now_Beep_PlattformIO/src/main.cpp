@@ -84,10 +84,6 @@ void getReadings() {
   my_yellow = !digitalRead(pinYellow);
   my_red    = !digitalRead(pinRed);
 
-  if (test) {
-    // Tasterwerte in Klartext ausgeben (für TOUCH wichtig)
-    Serial.printf("Sensorwerte der Tasten grün: %3d - gelb: %3d - rot: %3d \n", my_green, my_yellow, my_red);
-  }
   // Status der my_xxx-Variablen ausgeben
   Serial.print ("                      grün gelb rot\n");
   Serial.printf("Status der Tasten:       %1d / %1d / %1d \n", my_green, my_yellow, my_red);

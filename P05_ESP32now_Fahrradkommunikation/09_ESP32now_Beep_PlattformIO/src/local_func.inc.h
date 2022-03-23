@@ -30,20 +30,20 @@
    Serial.printf("Status in Kommunikation: %1d / %1d / %1d \n\n", incomingStatus.green, incomingStatus.yellow, incomingStatus.red);
 
    // wenn gelb, zuerst mal nur die LED anmachen
-   if (incomingStatus.yellow) {
+   if (incomingStatus.yellow or myStatus.yellow) {
      digitalWrite(pinLEDyellow, HIGH);
    } else {
      digitalWrite(pinLEDyellow, LOW);
    }
    // wenn rot, dann LED anmachen und beepen
-   if (incomingStatus.red) {
+   if (incomingStatus.red or myStatus.red) {
      digitalWrite(pinLEDred, HIGH);
      beep(sizeof(timeBeepRed)/2, timeBeepRed);
    } else {
      digitalWrite(pinLEDred, LOW);
 
      // bei gelb und nicht rot die gelbe Anzahl beepen, da sonst die Anzahls Beeps summiert würde
-     if (incomingStatus.yellow) {
+     if (incomingStatus.yellow or myStatus.yellow) {
        beep(sizeof(timeBeepYellow)/2, timeBeepYellow);
      }
 

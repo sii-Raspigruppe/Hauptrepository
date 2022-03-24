@@ -26,7 +26,7 @@ leerzeile
 #include "esp_wifi.h"
 
 // Individuelle Includedateien, um mehr Übersichtlichkeit zu erhalten
-#include "local_config.inc.h"
+#include "local_config_privat.inc.h"
 #include "espnow_func.inc.h"
 #include "local_func.inc.h"
 

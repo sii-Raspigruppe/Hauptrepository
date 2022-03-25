@@ -7,16 +7,9 @@
  *
  */
 
-// Hier die Mac-Adressen meiner ESPs
-uint8_t Arduino_ESP00[]   = {0x4C, 0xEB, 0xD6, 0x74, 0x49, 0xE8};  //0 COM11 A01
-uint8_t Arduino_ESP01[]   = {0x58, 0xBF, 0x25, 0x82, 0x45, 0xAC};  //1 COM07 A02
-uint8_t Arduino_ESP02[]   = {0x24, 0x6F, 0x28, 0x7C, 0x91, 0xC4};  //2 COM08 - Einbauverseion
-uint8_t Arduino_ESP03[]   = {0xC8, 0xC9, 0xA3, 0xC9, 0x77, 0x70};  //3 COM08 - NodeMCU 77:70
-uint8_t Arduino_ESP04[]   = {0x30, 0xC6, 0xF7, 0x55, 0x89, 0x9C};  //4 COM011 - ESP32-2 01
-uint8_t *Arduino_ESP[]    = { Arduino_ESP00, Arduino_ESP01, Arduino_ESP02, Arduino_ESP03, Arduino_ESP04 };
-
-// hier wird der jeweilige Partner eingetragen
-uint8_t *broadcastAddress = Arduino_ESP[3];
+// hier wird der jeweilige Partner aktiviert, der andere als Kommentar definiert
+//uint8_t *broadcastAddress = {0xC8, 0xC9, 0xA3, 0xC9, 0x77, 0x70}; //3 COM08 - NodeMCU 77:70
+uint8_t *broadcastAddress = {0x30, 0xC6, 0xF7, 0x55, 0x89, 0x9C}; //4 COM011 - ESP32-2 01
 
   // true, wenn erweiterte Testausgaben gewünscht werden
   bool test = false;
